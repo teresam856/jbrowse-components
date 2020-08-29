@@ -8,8 +8,11 @@ import { BaseFeatureDataAdapter } from '@gmod/jbrowse-core/data_adapters/BaseAda
 import PluginManager from '@gmod/jbrowse-core/PluginManager'
 import { Instance } from 'mobx-state-tree'
 import ComparativeServerSideRendererType from '@gmod/jbrowse-core/pluggableElementTypes/renderers/ComparativeServerSideRendererType'
+
 import { Dotplot1DView } from '../DotplotView/model'
 import MyConfig from './configSchema'
+
+require('art/modes/canvas')
 
 type Dim = Instance<typeof Dotplot1DView>
 
@@ -134,22 +137,17 @@ export default class DotplotRenderer extends ComparativeServerSideRendererType {
         )
       }),
     )
-    const imageData = await this.makeImageData({
-      ...renderProps,
-      views: realizedViews,
-    })
-
     const element = React.createElement(
       // @ts-ignore
       this.ReactComponent,
-      { ...renderProps, height, width, imageData },
+      { ...renderProps, height, width, views:realizedViews },
       null,
     )
 
     return {
       element,
-      imageData,
       height,
+      views:realizedViews,
       width,
       offsetX: realizedViews[0].dynamicBlocks.blocks[0].offsetPx,
       offsetY: realizedViews[1].dynamicBlocks.blocks[0].offsetPx,

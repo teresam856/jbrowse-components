@@ -99,7 +99,7 @@ function LinearSyntenyRendering(props: {
   const middle = true
   const hideTiny = false
   const rects = []
-  matches.forEach(m => {
+  matches.forEach((m, index) => {
     // we follow a path in the list of chunks, not from top to bottom, just in series
     // following x1,y1 -> x2,y2
     for (let i = 0; i < m.length - 1; i += 1) {
@@ -144,7 +144,9 @@ function LinearSyntenyRendering(props: {
       // filling in a thin polygon
       if (length1 < v1.bpPerPx || length2 < v2.bpPerPx) {
         const path = Path().moveto(x11, y1).lineto(x21, y2)
-        rects.push(<Shape d={path.print()} stroke={stroke} />)
+        rects.push(
+          <Shape key={index+'-'+path.print()} d={path.print()} stroke={stroke} />,
+        )
       } else {
         const path = Path()
           .moveto(x11, y1)
@@ -152,11 +154,12 @@ function LinearSyntenyRendering(props: {
           .lineto(x22, y2)
           .lineto(x21, y2)
           .closepath()
-        rects.push(<Shape d={path.print()} fill={fill} />)
+        rects.push(<Shape key={index+'-'+path.print()} d={path.print()} fill={fill} />)
       }
     }
   })
   // })
+  console.log(rects)
 
   return (
     <Surface width={width} height={height}>
