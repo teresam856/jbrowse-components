@@ -46,7 +46,7 @@ export default class DotplotRenderer extends ComparativeServerSideRendererType {
     const [hview, vview] = views
     const db1 = hview.dynamicBlocks.contentBlocks
     const db2 = vview.dynamicBlocks.contentBlocks
-    ;(hview.features || []).forEach(feature => {
+    ;(hview.features || []).concat(vview.features || []).forEach(feature => {
       const start = feature.get('start')
       const end = feature.get('end')
       const refName = feature.get('refName')
