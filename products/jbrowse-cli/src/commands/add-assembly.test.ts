@@ -856,7 +856,6 @@ describe('add-assembly', () => {
       )
       process.chdir('jbrowse')
     })
-    .mockConsoleLog()
     .mockConsoleError()
     .command([
       'add-assembly',

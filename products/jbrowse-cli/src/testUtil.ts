@@ -11,18 +11,18 @@ const fsPromises = fs.promises
 const tmpDir = fs.realpathSync(os.tmpdir())
 
 /* eslint-disable no-console */
-const mockConsoleLog = (opts?: { print?: boolean }) => ({
-  run(ctx: { consoleLog: jest.Mock }) {
-    const originalConsoleLog = console.log.bind(console)
-    const consoleLogMock = jest.fn((...data: unknown[]) => {
-      if (opts?.print) {
-        originalConsoleLog(...data)
-      }
-    })
-    console.log = consoleLogMock
-    ctx.consoleLog = console.log as typeof consoleLogMock
-  },
-})
+// const mockConsoleLog = (opts?: { print?: boolean }) => ({
+//   run(ctx: { consoleLog: jest.Mock }) {
+//     const originalConsoleLog = console.log.bind(console)
+//     const consoleLogMock = jest.fn((...data: unknown[]) => {
+//       if (opts?.print) {
+//         originalConsoleLog(...data)
+//       }
+//     })
+//     console.log = consoleLogMock
+//     ctx.consoleLog = console.log as typeof consoleLogMock
+//   },
+// })
 /* eslint-enable no-console */
 
 const mockConsoleWarn = (opts?: { print?: boolean }) => ({
@@ -66,7 +66,7 @@ const mockStdoutWrite = (opts?: { print?: boolean }) => ({
 })
 
 export const test = oclifTest
-  .register('mockConsoleLog', mockConsoleLog)
+  // .register('mockConsoleLog', mockConsoleLog)
   .register('mockConsoleWarn', mockConsoleWarn)
   .register('mockConsoleError', mockConsoleError)
   .register('mockStdoutWrite', mockStdoutWrite)
