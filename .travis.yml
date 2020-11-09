@@ -14,7 +14,7 @@ script:
   - (cd packages/development-tools && NODE_ENV=development yarn build)
   - yarn test-ci
   - yarn tsc --noEmit
-  - NODE_OPTIONS='--max-old-space-size=7000' yarn build
+  - NODE_OPTIONS='--max-old-space-size=7000' travis_wait yarn build
   - BUILT_TESTS=1 yarn built-test-ci
 
 after_success:
