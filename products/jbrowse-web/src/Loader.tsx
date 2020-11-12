@@ -17,8 +17,6 @@ import { PluginConstructor } from '@jbrowse/core/Plugin'
 import { FatalErrorDialog } from '@jbrowse/core/ui'
 import { TextDecoder, TextEncoder } from 'fastestsmallesttextencoderdecoder'
 import 'fontsource-roboto'
-import 'requestidlecallback-polyfill'
-import 'core-js/stable'
 import shortid from 'shortid'
 import {
   writeAWSAnalytics,
