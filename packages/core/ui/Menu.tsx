@@ -413,6 +413,7 @@ function Menu(props: MenuProps) {
       open={open}
       onClose={onClose}
       BackdropProps={{ invisible: true }}
+      transitionDuration={0}
       {...other}
     >
       <MenuPage
