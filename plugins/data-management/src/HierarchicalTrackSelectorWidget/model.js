@@ -64,6 +64,8 @@ export default pluginManager =>
           return []
         }
 
+        // filter out tracks that don't match the current assembly (check all
+        // assembly aliases) and display types
         return trackConfigurations
           .filter(conf => {
             const trackConfAssemblies = readConfObject(conf, 'assemblyNames')
