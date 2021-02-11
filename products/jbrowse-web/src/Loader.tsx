@@ -426,9 +426,13 @@ const Renderer = observer(
 
           if (loader.configSnapshot) {
             const rootModel = JBrowseRootModel.create({
+              // @ts-ignore
               jbrowse: configSnapshot,
+              // @ts-ignore
               assemblyManager: {},
+              // @ts-ignore
               version: packagedef.version,
+              // @ts-ignore
               configPath,
             })
 
@@ -440,6 +444,7 @@ const Renderer = observer(
               // make typescript happy by checking for session after
               // setDefaultSession, even though we know this exists now
               if (rootModel.session) {
+                // @ts-ignore
                 rootModel.session.notify(
                   `Error loading session: ${sessionError.message}. If you
                 received this URL from another user, request that they send you
@@ -456,11 +461,13 @@ const Renderer = observer(
                 const errorMessage = (err.message || '')
                   .replace('[mobx-state-tree] ', '')
                   .replace(/\(.+/, '')
+                // @ts-ignore
                 rootModel.session?.notify(
                   `Session could not be loaded. ${errorMessage}`,
                 )
               }
             } else {
+              // @ts-ignore
               const defaultJBrowseSession = rootModel.jbrowse.defaultSession
               if (defaultJBrowseSession?.views) {
                 if (defaultJBrowseSession.views.length > 0) {
@@ -473,6 +480,7 @@ const Renderer = observer(
             if (
               rootModel &&
               !readConfObject(
+                // @ts-ignore
                 rootModel.jbrowse.configuration,
                 'disableAnalytics',
               )
@@ -489,6 +497,7 @@ const Renderer = observer(
             // rootModel.setHistory(
             //   UndoManager.create({}, { targetStore: rootModel.session }),
             // )
+            // @ts-ignore
             pluginManager.setRootModel(rootModel)
             pluginManager.configure()
             setPluginManager(pluginManager)
