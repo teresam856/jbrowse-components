@@ -12,6 +12,7 @@ export default (configSchema: AnyConfigurationSchemaType) =>
       types.model({
         type: types.literal('LinearHicDisplay'),
         configuration: ConfigurationReference(configSchema),
+        resolution: types.optional(types.number, 1),
       }),
     )
     .views(self => ({
@@ -36,6 +37,42 @@ export default (configSchema: AnyConfigurationSchemaType) =>
           ...getParentRenderProps(self),
           config,
           displayModel: self,
+          resolution: self.resolution,
         }
       },
     }))
+    .actions(self => ({
+      setResolution(n: number) {
+        self.resolution = n
+      },
+    }))
+    .views(self => {
+      const { trackMenuItems } = self
+      return {
+        get composedTrackMenuItems() {
+          return [
+            {
+              label: 'Resolution',
+              subMenu: [
+                {
+                  label: 'Finer resolution',
+                  onClick: () => {
+                    self.setResolution(self.resolution * 2)
+                  },
+                },
+                {
+                  label: 'Coarser resolution',
+                  onClick: () => {
+                    self.setResolution(self.resolution / 2)
+                  },
+                },
+              ],
+            },
+          ]
+        },
+
+        get trackMenuItems() {
+          return [...trackMenuItems, ...this.composedTrackMenuItems]
+        },
+      }
+    })

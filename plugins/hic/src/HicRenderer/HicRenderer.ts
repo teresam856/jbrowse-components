@@ -27,7 +27,7 @@ interface HicDataAdapter extends BaseFeatureDataAdapter {
   getResolution: (bp: number) => number
 }
 
-export interface PileupRenderProps {
+export interface HicRenderProps {
   features: HicFeature[]
   dataAdapter: HicDataAdapter
   config: AnyConfigurationModel
@@ -35,15 +35,12 @@ export interface PileupRenderProps {
   bpPerPx: number
   height: number
   width: number
+  resolution: number
   highResolutionScaling: number
-  sortObject: {
-    position: number
-    by: string
-  }
 }
 
 export default class HicRenderer extends ServerSideRendererType {
-  async makeImageData(props: PileupRenderProps) {
+  async makeImageData(props: HicRenderProps) {
     const {
       features,
       config,
@@ -51,11 +48,12 @@ export default class HicRenderer extends ServerSideRendererType {
       bpPerPx,
       highResolutionScaling = 1,
       dataAdapter,
+      resolution,
     } = props
     const [region] = regions
     const width = (region.end - region.start) / bpPerPx
     const height = readConfObject(config, 'maxHeight')
-    const res = await dataAdapter.getResolution(bpPerPx)
+    const res = await dataAdapter.getResolution(bpPerPx / resolution)
 
     if (!(width > 0) || !(height > 0)) {
       return { height: 0, width: 0, maxHeightReached: false }
@@ -100,7 +98,7 @@ export default class HicRenderer extends ServerSideRendererType {
     }
   }
 
-  async render(renderProps: PileupRenderProps) {
+  async render(renderProps: HicRenderProps) {
     const {
       height,
       width,
