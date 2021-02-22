@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import InfoIcon from '@material-ui/icons/Info'
 import { transaction } from 'mobx'
-import { getRoot, Instance, resolveIdentifier, types } from 'mobx-state-tree'
+import {
+  getRoot,
+  Instance,
+  resolveIdentifier,
+  types,
+  IAnyModelType,
+} from 'mobx-state-tree'
 import { getConf } from '../../configuration'
 import {
   AnyConfigurationSchemaType,
@@ -121,7 +127,7 @@ export function createBaseTrackModel(
           'display',
         )
         const configuration = resolveIdentifier(
-          displayTypeConfigSchema,
+          displayTypeConfigSchema as IAnyModelType,
           getRoot(self),
           displayId,
         )
@@ -142,7 +148,7 @@ export function createBaseTrackModel(
           'display',
         )
         const configuration = resolveIdentifier(
-          displayTypeConfigSchema,
+          displayTypeConfigSchema as IAnyModelType,
           getRoot(self),
           displayId,
         )
@@ -170,7 +176,7 @@ export function createBaseTrackModel(
           'display',
         )
         const configuration = resolveIdentifier(
-          displayTypeConfigSchema,
+          displayTypeConfigSchema as IAnyModelType,
           getRoot(self),
           newDisplayId,
         )

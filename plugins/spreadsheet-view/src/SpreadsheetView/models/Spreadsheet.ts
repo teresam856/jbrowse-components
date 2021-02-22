@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { stringToFunction } from '@jbrowse/core/util/functionStrings'
 import PluginManager from '@jbrowse/core/PluginManager'
 import { getSession } from '@jbrowse/core/util'
@@ -81,7 +82,7 @@ export default (pluginManager: PluginManager) => {
       },
       get hideRowSelection() {
         // just delegates to parent
-        return getParent(self).hideRowSelection
+        return getParent<any>(self).hideRowSelection
       },
 
       // list of data type names to be made available in the column
